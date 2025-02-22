@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物商城</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8E6FF7',
+                        secondary: '#FF6B6B'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        .search-input:focus { outline: none; }
+        .category-item:hover { transform: translateY(-5px); }
+        .product-card:hover { transform: translateY(-5px); }
+        .login-modal { display: none; }
+        .login-modal.active { display: flex; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-['Pacifico'] text-primary">logo</a>
+                    <nav class="ml-10">
+                        <ul class="flex space-x-8">
+                            <li><a href="/" class="text-primary font-medium">首页</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-primary">全部商品</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-primary">热卖促销</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-primary">品牌专区</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="w-8 h-8 flex items-center justify-center">
+                        <i class="ri-shopping-cart-2-line text-gray-600 hover:text-primary cursor-pointer"></i>
+                    </div>
+                    <button id="loginBtn" class="px-4 py-2 bg-primary text-white !rounded-button whitespace-nowrap hover:bg-primary/90">登录/注册</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-16">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <div class="relative">
+                <div class="flex items-center max-w-2xl mx-auto">
+                    <div class="relative flex-1">
+                        <input type="text" class="w-full h-12 pl-12 pr-4 border border-gray-200 !rounded-button search-input" placeholder="搜索商品">
+                        <div class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center">
+                            <i class="ri-search-line text-gray-400"></i>
+                        </div>
+                    </div>
+                    <button class="ml-4 px-8 py-3 bg-primary text-white !rounded-button whitespace-nowrap hover:bg-primary/90">搜索</button>
+                </div>
+                <div class="mt-2 text-center text-sm text-gray-500">
+                    热门搜索：
+                    <a href="#" class="mx-2 hover:text-primary">iPhone 15</a>
+                    <a href="#" class="mx-2 hover:text-primary">华为手机</a>
+                    <a href="#" class="mx-2 hover:text-primary">耳机</a>
+                    <a href="#" class="mx-2 hover:text-primary">智能手表</a>
+                </div>
+            </div>
+
+            <div class="mt-8 relative h-[400px] rounded-lg overflow-hidden">
+                <img src="https://public.readdy.ai/ai/img_res/86591ace2db1623ec56160975a13db7c.jpg" class="w-full h-full object-cover" alt="Banner">
+            </div>
+
+            <div class="mt-12">
+                <h2 class="text-2xl font-semibold mb-8">商品分类</h2>
+                <div class="grid grid-cols-5 gap-6">
+                    <div class="category-item bg-white p-6 rounded-lg shadow-sm transition-transform duration-300 cursor-pointer">
+                        <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
+                            <i class="ri-smartphone-line text-3xl text-primary"></i>
+                        </div>
+                        <p class="text-center text-gray-700">手机数码</p>
+                    </div>
+                    <div class="category-item bg-white p-6 rounded-lg shadow-sm transition-transform duration-300 cursor-pointer">
+                        <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
+                            <i class="ri-t-shirt-line text-3xl text-primary"></i>
+                        </div>
+                        <p class="text-center text-gray-700">服装配饰</p>
+                    </div>
+                    <div class="category-item bg-white p-6 rounded-lg shadow-sm transition-transform duration-300 cursor-pointer">
+                        <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
+                            <i class="ri-home-line text-3xl text-primary"></i>
+                        </div>
+                        <p class="text-center text-gray-700">家居生活</p>
+                    </div>
+                    <div class="category-item bg-white p-6 rounded-lg shadow-sm transition-transform duration-300 cursor-pointer">
+                        <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
+                            <i class="ri-gamepad-line text-3xl text-primary"></i>
+                        </div>
+                        <p class="text-center text-gray-700">游戏娱乐</p>
+                    </div>
+                    <div class="category-item bg-white p-6 rounded-lg shadow-sm transition-transform duration-300 cursor-pointer">
+                        <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
+                            <i class="ri-book-line text-3xl text-primary"></i>
+                        </div>
+                        <p class="text-center text-gray-700">图书文具</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12">
+                <h2 class="text-2xl font-semibold mb-8">热门商品</h2>
+                <div class="grid grid-cols-4 gap-6">
+                    <div class="product-card bg-white rounded-lg shadow-sm transition-transform duration-300">
+                        <img src="https://public.readdy.ai/ai/img_res/b54655fae5a96cd3ef4d2750db1fb3a7.jpg" class="w-full h-[200px] object-cover rounded-t-lg" alt="Product">
+                        <div class="p-4">
+                            <h3 class="text-lg font-medium text-gray-800">iPhone 15 Pro Max</h3>
+                            <p class="text-sm text-gray-500 mt-1">256GB 暗紫色</p>
+                            <div class="mt-2 flex items-center justify-between">
+                                <span class="text-xl font-semibold text-primary">¥8999</span>
+                                <button class="px-3 py-1 bg-primary/10 text-primary text-sm !rounded-button whitespace-nowrap hover:bg-primary/20">加入购物车</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card bg-white rounded-lg shadow-sm transition-transform duration-300">
+                        <img src="https://public.readdy.ai/ai/img_res/9d74485391ec6f038c6de0bada982cc1.jpg" class="w-full h-[200px] object-cover rounded-t-lg" alt="Product">
+                        <div class="p-4">
+                            <h3 class="text-lg font-medium text-gray-800">AirPods Pro 2</h3>
+                            <p class="text-sm text-gray-500 mt-1">主动降噪 无线充电</p>
+                            <div class="mt-2 flex items-center justify-between">
+                                <span class="text-xl font-semibold text-primary">¥1899</span>
+                                <button class="px-3 py-1 bg-primary/10 text-primary text-sm !rounded-button whitespace-nowrap hover:bg-primary/20">加入购物车</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card bg-white rounded-lg shadow-sm transition-transform duration-300">
+                        <img src="https://public.readdy.ai/ai/img_res/4f0856d27b3ba64e98b19250d060a70f.jpg" class="w-full h-[200px] object-cover rounded-t-lg" alt="Product">
+                        <div class="p-4">
+                            <h3 class="text-lg font-medium text-gray-800">Apple Watch Series 9</h3>
+                            <p class="text-sm text-gray-500 mt-1">GPS 45mm 午夜色</p>
+                            <div class="mt-2 flex items-center justify-between">
+                                <span class="text-xl font-semibold text-primary">¥3299</span>
+                                <button class="px-3 py-1 bg-primary/10 text-primary text-sm !rounded-button whitespace-nowrap hover:bg-primary/20">加入购物车</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card bg-white rounded-lg shadow-sm transition-transform duration-300">
+                        <img src="https://public.readdy.ai/ai/img_res/eb82133dc3751a53cbcb3dc694b7ba96.jpg" class="w-full h-[200px] object-cover rounded-t-lg" alt="Product">
+                        <div class="p-4">
+                            <h3 class="text-lg font-medium text-gray-800">iPad Air 5</h3>
+                            <p class="text-sm text-gray-500 mt-1">256GB WIFI 星光色</p>
+                            <div class="mt-2 flex items-center justify-between">
+                                <span class="text-xl font-semibold text-primary">¥4799</span>
+                                <button class="px-3 py-1 bg-primary/10 text-primary text-sm !rounded-button whitespace-nowrap hover:bg-primary/20">加入购物车</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white mt-16">
+        <div class="max-w-7xl mx-auto px-4 py-12">
+            <div class="grid grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">关于我们</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-primary">公司简介</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary">招贤纳士</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary">联系我们</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">帮助中心</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-primary">购物指南</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary">支付方式</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary">配送方式</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">售后服务</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-primary">退换货政策</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary">退换货流程</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary">投诉建议</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">关注我们</h3>
+                    <div class="flex space-x-4">
+                        <div class="w-8 h-8 flex items-center justify-center">
+                            <i class="ri-wechat-fill text-2xl text-[#07C160]"></i>
+                        </div>
+                        <div class="w-8 h-8 flex items-center justify-center">
+                            <i class="ri-weibo-fill text-2xl text-[#E6162D]"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-200 text-center text-gray-500">
+                <p>© 2025 购物商城. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="login-modal fixed inset-0 bg-black/50 items-center justify-center">
+        <div class="bg-white rounded-lg w-[400px] p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-semibold">登录/注册</h3>
+                <button class="close-modal">
+                    <i class="ri-close-line text-gray-500 hover:text-gray-700 text-xl"></i>
+                </button>
+            </div>
+            <form id="loginForm">
+                <div class="mb-4">
+                    <input type="text" class="w-full h-12 px-4 border border-gray-200 rounded" placeholder="手机号/邮箱">
+                </div>
+                <div class="mb-6">
+                    <input type="password" class="w-full h-12 px-4 border border-gray-200 rounded" placeholder="密码">
+                </div>
+                <button type="submit" class="w-full py-3 bg-primary text-white !rounded-button whitespace-nowrap hover:bg-primary/90">登录</button>
+                <div class="mt-4 text-center">
+                    <a href="#" class="text-primary hover:underline">忘记密码？</a>
+                    <span class="mx-2 text-gray-300">|</span>
+                    <a href="#" class="text-primary hover:underline">立即注册</a>
+                </div>
+                <div class="mt-6 flex items-center justify-center space-x-4">
+                    <button type="button" class="flex items-center text-gray-600 hover:text-primary">
+                        <i class="ri-wechat-fill text-xl mr-2"></i>
+                        微信登录
+                    </button>
+                    <button type="button" class="flex items-center text-gray-600 hover:text-primary">
+                        <i class="ri-qq-fill text-xl mr-2"></i>
+                        QQ登录
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        const loginBtn = document.getElementById('loginBtn');
+        const loginModal = document.querySelector('.login-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const loginForm = document.getElementById('loginForm');
+        loginBtn.addEventListener('click', () => {
+            loginModal.classList.add('active');
+        });
+
+        closeModal.addEventListener('click', () => {
+            loginModal.classList.remove('active');
+        });
+
+        loginModal.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.classList.remove('active');
+            }
+        });
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(loginForm);
+            console.log('Login form submitted');
+        });
+    </script>
+</body>
+</html>
